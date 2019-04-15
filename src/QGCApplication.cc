@@ -118,6 +118,10 @@
 
 #include "QGCMapEngine.h"
 
+
+
+#include "unitysenderworker.h"
+
 QGCApplication* QGCApplication::_app = nullptr;
 
 const char* QGCApplication::_deleteAllSettingsKey           = "DeleteAllSettingsNextBoot";
@@ -401,6 +405,11 @@ void QGCApplication::setLanguage()
     //-- Our localization
     if(_QGCTranslator.load(locale, "qgc_", "", ":/localization"))
         _app->installTranslator(&_QGCTranslator);
+
+    UnitySenderWorker* sender = new UnitySenderWorker();
+    sender->start();
+//    qDebug() << "sender!!!\n";
+//    sender.startThread();
 }
 
 void QGCApplication::_shutdown(void)
